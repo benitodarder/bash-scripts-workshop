@@ -3,9 +3,11 @@ if [ "$#" -lt 2 ]; then
 	exit 1
 fi 
 
-REGION=<AWS region>
-PROFILE=<Profile authorized to push images>
-ACCOUNT=<AWS account id.>
+# Set accordingly:
+#
+# REGION=<AWS region>
+# PROFILE=<Profile authorized to push images>
+# ACCOUNT=<AWS account id.>
 
 set -x
 
