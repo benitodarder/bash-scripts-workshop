@@ -18,6 +18,13 @@ read -p "About to wipe out "$BUCKET"? (yes/*) " INPUT
 if [ "$INPUT" != "yes" ]; then
   echo "Aborting deletion."
 else
-  set -x
-  aws  s3 rm s3://$BUCKET --recursive --profile $PROFILE
+  read -p "Think about it... Are you really really sure to wipe out "$BUCKET"? (yes/*) " INPUT
+  if [ "$INPUT" != "yes" ]; then
+    echo "Aborting deletion."  
+  else 
+    set -x
+    aws  s3 rm s3://$BUCKET --recursive --profile $PROFILE
+    aws s3api delete-objects --bucket $BUCKET --delete "$(aws s3api list-object-versions --bucket ${BUCKET} --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}' --profile $PROFILE)" --profile $PROFILE
+    aws s3api delete-objects --bucket $BUCKET --delete "$(aws s3api list-object-versions --bucket ${BUCKET} --query='{Objects: DeleteMarkers[].{Key:Key,VersionId:VersionId}}' --profile $PROFILE)" --profile $PROFILE 
+  fi
 fi

@@ -6,4 +6,4 @@ if [ "$#" -ne 1 ]; then
 fi 
 set -x  
 
-aws ec2 describe-instances --query 'Reservations[].Instances[].[PrivateIpAddress,InstanceId,InstanceType,Tags[?Key==`Name`]| [0].Value,State.Name]' --output table --profile $1
+aws ec2 describe-instances --query 'Reservations[].Instances[].[LaunchTime,ImageId,PrivateIpAddress,InstanceId,InstanceType,Tags[?Key==`Name`]| [0].Value,State.Name]' --output table --profile $1 --no-cli-pager

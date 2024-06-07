@@ -14,4 +14,4 @@ shift
 PATH_TO_KEY=$1
 shift
 
-aws ec2 create-key-pair --profile "$PROFILE" --key-name "$KEY_NAME" ---query "KeyMaterial"  "--output text > "$PATH_TO_KEY".pem
+aws ec2 create-key-pair --profile "$PROFILE" --key-name "$KEY_NAME" --query "KeyMaterial"  --output text > "$PATH_TO_KEY".pem
